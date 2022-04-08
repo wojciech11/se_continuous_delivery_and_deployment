@@ -167,9 +167,11 @@ W tym ćwiczeniu przygotowujemy do produkcji naszą aplikację, w tym celu musim
       l -- master --> G(remote\ngithub)
     ```
 
-## 5. Badge Github Actions w README
+## 5. Badge Github Actions i StatusCake w README
 
-Dodaj badge, który mówi o stanie naszej automatyzacji na Github Action, korzystając z [ich dokumentacji](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge).
+1. Dodaj badge, który mówi o stanie naszej automatyzacji na Github Action, korzystając z [ich dokumentacji](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge).
+
+2. Dodaj Badge z StatusCake, kod do niego znajdziesz po prawej stronie "UPTIME BUTTON".
 
 ## 6. Test coverage
 

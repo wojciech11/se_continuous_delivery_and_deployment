@@ -97,6 +97,16 @@ Flask ma wbudowany serwer WWW, ale, w domyślnej konfiguracji, ten serwer może 
       l -- master --> G(remote\ngithub)
    ```
 
+   Czyli jeśli chcesz umieścić zmiany w:
+
+   ```bash
+   # github to:
+   git push
+
+   # a heroku to:
+   git push heroku master
+   ```
+
 6. Otwórz swoja aplikację z interfejsu webowego Heroku. URl znajdziesz również w logach Heroku (`heroku logs`).
 
 7. Ciekawostka. Heroku to PaaS, który upraszcza wiele aspektów obsługi aplikacji na przykład skalowanie. Na Heroku to jedna komenda:

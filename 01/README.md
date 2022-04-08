@@ -1,8 +1,25 @@
 # Continuous Integration &amp; Delivery
 
+Na tym i następnych zajęciach omówimy w jaki sposób automatyzujemy budowę oprogramowania.
+
+Mówimy o trzech procesach:
+
+- Ciągła integracja (*Continuous Integration*)
+- Ciągle dostarczanie (*Continuous Delivery*)
+- Ciągla instalacja (*Continuous Deployment*)
+
 ```mermaid
 flowchart LR
     CI(Continuous\nIntegration) --> CDel(Continuous\nDelivery) --> CD(Continuous\nDeployment)
+```
+
+## 0. Cel na dzisiaj
+
+Naszym celem dzisiaj jest zaimplementowania następującej automatyzacji (*Continuous Integration* i *Continuous Delivery*):
+
+```mermaid
+flowchart LR
+    Dev(Tester/Programista) -- git\npush --> Github(Repozytorium\nGithub) -- wyzwala --> GAction(Automatycznie:\n1. linter\n2. testy\n3. buduje pakiet)
 ```
 
 ## 1. Przygotowanie do pracy
@@ -17,7 +34,7 @@ flowchart LR
 
    Powinieneś zobaczyć wyświetlenie konfiguracji z github username i email.
 
-## 2. Przygotowania kodu źródłowego 
+## 2. Przygotowania kodu źródłowego
 
 W czasie tego ćwiczenia, przygotujemy kod źródłowy nad którym będziemy pracować. Jak to w każdej firmie, po krótkim wprowadzeniu, dostajemy adres git-a z projektem, który ma ocalić firmę od bankructwa. Deweloper, biegnąć na kolejne telco, powiedział, że wszystko jest w README.
 
@@ -56,7 +73,7 @@ W czasie tego ćwiczenia, przygotujemy kod źródłowy nad którym będziemy pra
 
 5. Po uruchomieniu aplikacji otwórz w przeglądarce adres 127.0.0.1:5000
 
-6. Zamiast przeglądarki wykorzystaj narzędzie curl w konsoli bash: 
+6. Zamiast przeglądarki wykorzystaj narzędzie curl w konsoli bash:
 
    ```bash
    curl 127.0.0.1:5000
@@ -70,11 +87,11 @@ W czasie tego ćwiczenia, przygotujemy kod źródłowy nad którym będziemy pra
 
 7. Uruchom testy według poleceń z README.md.
 
-   Najpopularniejszym formatem dla README jest Markdown, coraz rzadziej spotykamy RestructuredText – README.rst. 
+   Najpopularniejszym formatem dla README jest Markdown, coraz rzadziej spotykamy RestructuredText – README.rst.
 
    Jeśli potrzebujesz inspiracje jak modyfikować Markdown, skorzystaj z [tutoriala](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
 
-8. Czas zanurzyć się w kodzie... 
+8. Czas zanurzyć się w kodzie...
 
    - Wyszukaj plik python zawierający imię, które widziałaś przy powitaniu,
    - Zmień wartość tej zmienną na swoje imie,
@@ -203,7 +220,7 @@ Posiadanie własnej instalacji Jenkins-a daje nam duże możliwości konfiguracj
    jobs:
      build:
        runs-on: ubuntu-latest
-   
+
        steps:
          # pobierz kod
          - uses: actions/checkout@v2
@@ -228,7 +245,7 @@ Posiadanie własnej instalacji Jenkins-a daje nam duże możliwości konfiguracj
 
 ## 4. Zbudowanie pakietu
 
-Idziemy za ciosem. Mamy automatyczne testy, teraz chcemy dodać budowę pakietu dla naszego projektu. W ćwiczeniu pokażemy, jak przygotować komponenty gotowe do dostarczenia do klienta w ramach Continuous Delivery. 
+Idziemy za ciosem. Mamy automatyczne testy, teraz chcemy dodać budowę pakietu dla naszego projektu. W ćwiczeniu pokażemy, jak przygotować komponenty gotowe do dostarczenia do klienta w ramach Continuous Delivery.
 
 Celem Continuous Delivery jest przygotowanie artefaktu gotowego do dostarczenia do klienta (Continuous Deployment). Artefaktem może być pakiet (.deb, .rpm), instalator (.msi), w naszym przypadku będzie to Docker.
 
@@ -236,17 +253,17 @@ Celem Continuous Delivery jest przygotowanie artefaktu gotowego do dostarczenia 
 
    ```Dockerfile
    FROM python:3
-   
+
    ARG APP_DIR=/usr/src/hello_world_printer
-   
+
    WORKDIR /tmp
    ADD requirements.txt /tmp/requirements.txt
    RUN pip install -r /tmp/requirements.txt
-   
+
    RUN mkdir -p $APP_DIR
    ADD hello_world/ $APP_DIR/hello_world/
    ADD main.py $APP_DIR
-   
+
    CMD PYTHONPATH=$PYTHONPATH:/usr/src/hello_world_printer \
            FLASK_APP=hello_world flask run --host=0.0.0.0
    ```
@@ -261,10 +278,10 @@ Uwaga: Zanim zaczniesz to ćwiczenie, przygotuj sobie drugą zakładkę terminal
 
    ```bash
    # zobaczmy czy sie zbudowal nasz obraz
-   docker images 
+   docker images
    ```
 
-3. Jeśli komponent jest prosty, możemy weryfikować poprawność definicji w czasie 
+3. Jeśli komponent jest prosty, możemy weryfikować poprawność definicji w czasie
 etapu budowy:
 
    Zmień CMD na RUN i ponownie zbuduj komponent. Jeśli aplikacja się uruchomiła, powróć do poprzedniej wersji Dockerfile.
@@ -332,7 +349,7 @@ docker restart NAZWA_DOCKERA
 Przydatne komendy dockera (pamiętamy o sudo), wychodzimy wpisując exit :
 
 ```bash
-# możemy uruchomić basha w naszym dockerze image 
+# możemy uruchomić basha w naszym dockerze image
 docker run -it hello-world-printer /bin/bash
 
 # uruchamiamy bash-a w działającym dockerze z naszą aplikacją:
@@ -382,7 +399,7 @@ Mamy pakiet w repozytorium, warto się zastanowić jak poprawnie nadać mu numer
    - 500
    - 418
 
-2. Jaki kod http otrzymujemy? Dlaczego? 
+2. Jaki kod http otrzymujemy? Dlaczego?
 
    ```bash
    curl google.com
@@ -410,7 +427,7 @@ test_smoke:
 
 ## 9. Python - wsparcie dla XMLa
 
-Dowiedzieliśmy się, że nasza aplikacja ma również wspierać format XML. 
+Dowiedzieliśmy się, że nasza aplikacja ma również wspierać format XML.
 
 Wymagania, dla wywołania aplikacji z argumentem `output=xml`:
 
@@ -437,7 +454,7 @@ Wszystko działa? Tak. Zmerguj z masterem.
 
 ## 10. Python - podaje imię w argumencie
 
-Dowiedzieliśmy się, że nasza aplikacja ma obsługiwać imię wpisane w argumencie. 
+Dowiedzieliśmy się, że nasza aplikacja ma obsługiwać imię wpisane w argumencie.
 
 Wymagnia, dla podania argumentu name:
 

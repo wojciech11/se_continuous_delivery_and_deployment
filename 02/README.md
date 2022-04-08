@@ -262,7 +262,7 @@ Popularnym narzędziem do monitorowania licencji jest blackducksoftware.com czy 
 
 ## 9. Gitlab [Dodatkowe]
 
-xyz
+TBA - patrz doc 04.
 
 ## 10. Black vs flake8 [Dodatkowe/Zaawansowane]
 
@@ -270,7 +270,7 @@ Po długich dyskusjach na temat wyglądu naszego kodu, doszliśmy do wniosku, ż
 
 1. Zastępując target lint wywołaniem blacka oraz dodaj dodatkowy target dla sprawdzania czy kod jest dobrze sformatowany. Dodatkowy target, będzie kończy błędem, jeśli kod nie ma właściwego formatu.
 
-   ```Makefiel
+   ```Makefile
    # formatuje kod wedlug blacka
    # oczekujemy, ze dev/tester to uzyje przed pushem do gita
    fmt:
@@ -279,12 +279,12 @@ Po długich dyskusjach na temat wyglądu naszego kodu, doszliśmy do wniosku, ż
    # do użycia w CI/CD
    lint:
    	black --check hello_world test
-    ```
+   ```
 
-2.	Przetestuj lokalnie, nie zapomnij dodać zależność do blacka w `test_requirements.txt`
+2. Przetestuj lokalnie, nie zapomnij dodać zależność do blacka w `test_requirements.txt`
 
-3.	Przejrzyj wszystkie skrypty CI/CD i zastosuj we właściwych miejscach: `make lint_check`.
+3. Przejrzyj wszystkie skrypty CI/CD i zastosuj we właściwych miejscach: `make lint_check`.
 
-4.	Przetestuj czy właściwie CI/CD wyłapuje błędy w kodzie.
+4. Przetestuj czy właściwie CI/CD wyłapuje błędy w kodzie.
 
 **Uwaga**: ucząc się Pythona, w swoich projektach wykorzystuj flake8, ponieważ poprawianie samemu błędów uczy nas właściwego pisania kodu Pythona. W dalszej części swojej przygody z Pythonem, rozważ częstsze stosowanie blacka lub podobnego narzędzia.

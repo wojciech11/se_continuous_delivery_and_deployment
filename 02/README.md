@@ -2,7 +2,7 @@
 
 ## 1. Przygotowanie kodu źródłowego
 
-W czasie tego ćwiczenia, będziemy korzystali z kodu źródłowego z ostatnich zajęć (aplikacja `se_hello_world`. 
+W czasie tego ćwiczenia, będziemy korzystali z kodu źródłowego z ostatnich zajęć (aplikacja `se_hello_world`.
 
 Proszę zweryfikować, że wszystko działa. Wykozystaj `Makefile` oraz wskazówki w `README.md`.
 
@@ -10,7 +10,7 @@ Pamiętaj o wirtualnym środowisku Pythona.
 
 ## 2. Deployment do Heroku z maszyny dev
 
-W tym ćwiczeniu pokażemy, jak możemy wykorzystać platformę typu PaaS do hostowania naszej aplikacji.  Budżet jest niski, terminy gonią, decydujemy się na platformę PaaS – heroku.
+W tym ćwiczeniu pokażemy, jak możemy wykorzystać platformę typu PaaS do hostowania naszej aplikacji. Budżet jest, terminy gonią, decydujemy się na platformę PaaS – heroku.
 
 Flask ma wbudowany serwer WWW, ale, w domyślnej konfiguracji, ten serwer może obsłużyć tylko jedno żądanie. Dlatego w naszym przykładzie wykorzystamy [gunicorn](https://devcenter.heroku.com/articles/python-gunicorn).
 
@@ -44,9 +44,9 @@ Flask ma wbudowany serwer WWW, ale, w domyślnej konfiguracji, ten serwer może 
 
    Jeśli chcesz się dowiedzieć więcej, skorzystaj z [dokumentacji](https://devcenter.heroku.com/articles/getting-started-with-python).
 
-3. *TBA WHY?* Zainstaluj Heroku CLI, korzystając z instrukcji na stronie: https://devcenter.heroku.com/articles/heroku-cli
+3. A czy jest możliwość przetestowania lokalnie? Jest - Heroku CLI. Zainstaluj to narzędzie, korzystając z [instrukcji](https://devcenter.heroku.com/articles/heroku-cli) (wskazówka: wykorzystaj  `snap`).
 
-4. Przetestuj plik `Procfile` z pomocą Heroku CLI:
+4. Teraz z pomocą Heroku CLI, możemy sprawdzić czy komenda w `Procfile` jest poprawna:
 
    ```bash
    # w jednym oknie terminala
@@ -59,13 +59,57 @@ Flask ma wbudowany serwer WWW, ale, w domyślnej konfiguracji, ten serwer może 
 5. Umieśćmy aplikację na platformie Heroku, zanim to zrobisz wrzuć wszystkie pliki na githuba:
 
    ```bash
-   # TODO
+   # sprawdź czy Procfile
+   # i requirements.txt jest dodany
+   git status
    ```
+
+   ```bash
+   # zaloguj sie do heroku
+   heroku login -i
+
+   # poinformuj Heroku
+   # ze masz nowa aplikacje
+   heroku create
+
+   # aplikacja pojawi się w heroku dashboard po odświeżeniu przeglądarki internetowej.
+
+   # zauważ
+   # heroku uzywa gita
+   git remote -v
+
+   # sprawdz czy nie zapomnialas/es
+   # o Procfile i requirements.txt
+   git status
+
+   # deploy
+   git push heroku master
+
+   # sprawdz logi
+   heroku logs
+   ```
+
+   Ilustracja jak lokale repozytorium git jest podłączone do githuba i heroku (`git remote -v`):
 
    ```mermaid
    flowchart BT
       l(local\ngit) -- master --> H(remote\nheroku)
       l -- master --> G(remote\ngithub)
+   ```
+
+6. Otwórz swoja aplikację z interfejsu webowego Heroku. URl znajdziesz również w logach Heroku (`heroku logs`).
+
+7. Ciekawostka. Heroku to PaaS, który upraszcza wiele aspektów obsługi aplikacji na przykład skalowanie. Na Heroku to jedna komenda:
+
+   ```bash
+   # zeskalujmy do zera
+   # nasza aplikacja nie bedzie dzialac
+   heroku ps:scale web=0
+
+   # spowrotem do 1
+   # z kartą kredytową moglibysmy
+   # skalowac ile budzet by nam pozwolil
+   heroku ps:scale web=1
    ```
 
 ## 3. Deployment z Github Actions [Dodatkowe]
@@ -140,9 +184,9 @@ Projekt okazuje się sporym sukcesem, dostaliśmy kilka dni, aby poprawić kod, 
    Zamiast na ekran możemy przekierować raport do raportu XML:
 
    ```bash
-   PYTHONPATH=. py.test --verbose -s --cov=. --cov-report xml 
+   PYTHONPATH=. py.test --verbose -s --cov=. --cov-report xml
    ````
-  
+
    Albo i do terminala i do XMLa (sprawdź też : `--cov-report term-missing`):
 
    ```bash
@@ -159,7 +203,7 @@ Projekt okazuje się sporym sukcesem, dostaliśmy kilka dni, aby poprawić kod, 
    PYTHONPATH=. py.test -s --cov=. \
        --cov-report xml \
        --cov-report term \
-       --junit-xml=test_results.xml 
+       --junit-xml=test_results.xml
    ```
 
 4. Teraz, dodaj dwa nowe targety do pliku Makefile:
@@ -169,7 +213,7 @@ Projekt okazuje się sporym sukcesem, dostaliśmy kilka dni, aby poprawić kod, 
 
 5. Zmodyfikuj .gitignore, aby git (git status) ignorował pliki: test_results.xml, coverage.xml i .coverage.
 
-6. Wykorzystaj make test_xunit w Github Actions. Sprawdź, czy działa. Możliwe, że musisz przypiąć wersję pytest w `test_requirements.txt`, np.: 
+6. Wykorzystaj make test_xunit w Github Actions. Sprawdź, czy działa. Możliwe, że musisz przypiąć wersję pytest w `test_requirements.txt`, np.:
 
 `pytest>=4.6`
 
@@ -185,7 +229,7 @@ radon cc hello_world
 ````
 Alternatywa: Możesz również skorzystać z mccabe z pomocą komendy flake8, zobacz: https://github.com/PyCQA/mccabe .
 
-Zobacz również: https://github.com/mre/awesome-static-analysis#python 
+Zobacz również: https://github.com/mre/awesome-static-analysis#python
 
 Koniecznie zapoznaj się z: https://github.com/psf/black - kiedy będziesz twoje umiejętności Pythona będą solidne, warto używać `black` zamiast `flake8`.
 
@@ -216,7 +260,7 @@ Częścią pipeline-u w dużych firmach jest też wykrywanie licencji, które mo
 
 3. Zanotuj licencje komponentów, które używamy w naszej aplikacji.
 
-Popularnym narzędziem do monitorowania licencji jest blackducksoftware.com czy WhiteSource. 
+Popularnym narzędziem do monitorowania licencji jest blackducksoftware.com czy WhiteSource.
 
 ## 9. Gitlab [Dodatkowe]
 
@@ -233,7 +277,7 @@ Po długich dyskusjach na temat wyglądu naszego kodu, doszliśmy do wniosku, ż
    # oczekujemy, ze dev/tester to uzyje przed pushem do gita
    fmt:
    	black hello_world test
-   
+
    # do użycia w CI/CD
    lint:
    	black --check hello_world test

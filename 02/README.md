@@ -128,18 +128,18 @@ TBA - [docs](https://github.com/marketplace/actions/deploy-to-heroku)
 
 ## 4. Prosty monitoring z Statuscake
 
-W tym ćwiczeniu przygotowujemy do produkcji naszą aplikację, w tym celu musimy przygotować monitoring. Budżet jest niski, terminy gonią, decydujemy się na prosty monitoring, który wykryje, kiedy jesteśmy offline - statuscake.com.
+W tym ćwiczeniu przygotowujemy do produkcji naszą aplikację, w tym celu musimy przygotować monitoring. Budżet jest niski, terminy gonią, decydujemy się na prosty monitoring, który wykryje, kiedy jesteśmy offline - [statuscake.com](https://statuscake.com).
 
 1. Przejdź do statuscake.com
 2. Utwórz konto.
-3. Dodaj grupę kontaktową ze swoim email-em.
+3. Dodaj grupę kontaktową ze swoim emailem.
 4. Dodaj Uptime Monitoring test:
 
    - URL: url Twojej aplikacji
    - Nazwa: dowolna
    - Contact Group: zdefiniowana w 3.
 
-5. Uaktualnij README.md o informację o monitoring-u.
+5. Uaktualnij README.md o informację o monitoringu.
 
 6. Dodaj do końca URLa `xyz`. Zaobserwuj jak zmieni się status testu.
 
@@ -150,22 +150,10 @@ W tym ćwiczeniu przygotowujemy do produkcji naszą aplikację, w tym celu musim
    - SLA
    - Postmortem
    - Technika 5x Why i Blameless Postmortem
-   - MTTR
-   - MTTF
+   - MTTR i MTTF
    - Technical Debt
 
 9. Zweryfikuj ocenę certyfikatu SSL dla kilku przykładowych domen z pomocą: https://www.ssllabs.com/ssltest/
-
-
-10. Umieśćmy aplikację na platformie Heroku, zanim to zrobisz wrzuć wszystkie pliki na githuba:
-
-    An illustration how your local git repository is connected to two remotes (`git remote -v`):
-
-    ```mermaid
-    flowchart BT
-      l(local\ngit) -- master --> H(remote\nheroku)
-      l -- master --> G(remote\ngithub)
-    ```
 
 ## 5. Badge Github Actions i StatusCake w README
 
@@ -210,7 +198,6 @@ Projekt okazuje się sporym sukcesem, dostaliśmy kilka dni, aby poprawić kod, 
 
 3. Dodatkowo, jeśli chcemy wizualizować informację o naszych testach (w ramach ćwiczeń o Jenkinsie) upewnijmy się, że generujemy również junit XML:
 
-
    ```bash
    PYTHONPATH=. py.test -s --cov=. \
        --cov-report xml \
@@ -225,20 +212,19 @@ Projekt okazuje się sporym sukcesem, dostaliśmy kilka dni, aby poprawić kod, 
 
 5. Zmodyfikuj .gitignore, aby git (git status) ignorował pliki: test_results.xml, coverage.xml i .coverage.
 
-6. Wykorzystaj make test_xunit w Github Actions. Sprawdź, czy działa. Możliwe, że musisz przypiąć wersję pytest w `test_requirements.txt`, np.:
-
-`pytest>=4.6`
+6. Wykorzystaj make test_xunit w Github Actions. Sprawdź, czy działa. Możliwe, że musisz przypiąć wersję pytest w `test_requirements.txt`, np.: `pytest>=4.6`
 
 Zauważ: moglibyśmy dodać kod do wysyłania wyników testów z Github Actions do zewnętrznego serwisu.
 
 ## 7. Code complexity [Dodatkowe]
 
-Jedną z metryk jest również [Code complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity), zobaczmy jak możemy ją przeanalizować z użyciem narzędzia radon (patrz: https://pypi.python.org/pypi/radon) :
+Jedną z metryk jest również [code complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity), zobaczmy jak możemy ją przeanalizować z użyciem narzędzia radon (patrz: https://pypi.python.org/pypi/radon) :
 
 ```bash
 pip install radon
 radon cc hello_world
 ````
+
 Alternatywa: Możesz również skorzystać z mccabe z pomocą komendy flake8, zobacz: https://github.com/PyCQA/mccabe .
 
 Zobacz również: https://github.com/mre/awesome-static-analysis#python
@@ -247,7 +233,7 @@ Koniecznie zapoznaj się z: https://github.com/psf/black - kiedy będziesz twoje
 
 ## 8. Licencje
 
-Wyszukaj i znajdź różnice między:
+Wyszukaj w Googlu i znajdź różnice między następującymi licencjami:
 
 - Apache
 - GPL

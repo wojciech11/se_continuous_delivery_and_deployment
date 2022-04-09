@@ -301,6 +301,8 @@ etapu budowy:
    make docker_build
    ```
 
+5. Co to jest dependency hell? Wyszukaj w Google-u.
+
 ## 5. Uruchom nasz aplikacje w Dockerze
 
 ```bash

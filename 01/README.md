@@ -218,12 +218,12 @@ Posiadanie własnej instalacji Jenkins-a daje nam duże możliwości konfiguracj
    on: [ push ]
 
    jobs:
-     build:
+     build_and_test:
        runs-on: ubuntu-latest
 
        steps:
          # pobierz kod
-         - uses: actions/checkout@v2
+         - uses: actions/checkout@v3
          # moja aplikacja jest w Pythonie
          - name: Set up Python 3
            uses: actions/setup-python@v3
@@ -231,7 +231,7 @@ Posiadanie własnej instalacji Jenkins-a daje nam duże możliwości konfiguracj
          - name: Install deps
            run: make deps
          # testy!!!!!
-         - name: Install deps
+         - name: Tests
            run: make test
    ```
 

@@ -303,7 +303,7 @@ etapu budowy:
 
 5. Co to jest dependency hell? Wyszukaj w Google-u.
 
-## 5. Uruchom nasz aplikacje w Dockerze
+## 5. Uruchom aplikację z obrazu Dockera
 
 ```bash
 docker run --name hello-world-printer-dev -p 5000:5000 -d hello-world-printer

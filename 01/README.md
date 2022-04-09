@@ -294,6 +294,8 @@ etapu budowy:
     docker build -t hello-world-printer .
    ```
 
+   Sprawdź w terminalu czy działa:
+
    ```bash
    # sprawdz czy dziala
    make docker_build

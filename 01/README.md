@@ -268,7 +268,7 @@ Celem Continuous Delivery jest przygotowanie artefaktu gotowego do dostarczenia 
            FLASK_APP=hello_world flask run --host=0.0.0.0
    ```
 
-Uwaga: Zanim zaczniesz to ćwiczenie, przygotuj sobie drugą zakładkę terminala (ctr-shift-t) lub nowe okno do uruchamiania komend jako root. W nowym terminalu, wywołaj `sudo su` (czym różni się od `sudo su -`?). W tej nowej zakładce, tam gdzie jesteś rootem, wykonaj komendę `docker ps`.
+Uwaga: Zanim zaczniesz to ćwiczenie, przygotuj sobie drugą zakładkę terminala (ctr-shift-t) lub nowe okno do uruchamiania komend jako root. W nowym terminalu, wywołaj `sudo su` (czym różni się od `sudo su -`?). W tej nowej zakładce, tam gdzie jesteś rootem, wykonaj komendę `docker ps`, aby się upewnić, że możesz wykonać ćwiczenie.
 
 2. Wypieczmy obraz dockera w oknie gdzie jesteś rootem:
 

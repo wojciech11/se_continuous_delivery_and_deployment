@@ -174,7 +174,7 @@ Niestety, nasz projekt nie ma takiego skryptu. W tym ćwiczeniu wykorzystamy nar
    make lint
    ```
 
-   Wykorzystaj `#noqa`, aby zignorować błąd w ostatniej linii  `__init__.py`
+   Wykorzystaj `# noqa`, aby zignorować błąd w ostatniej linii  `__init__.py`
 
 6. Odpowiedź na pytanie: dlaczego ważne jest single point of entry i README.md?
 

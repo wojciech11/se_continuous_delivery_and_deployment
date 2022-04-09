@@ -287,7 +287,7 @@ etapu budowy:
    Zmień CMD na RUN i ponownie zbuduj komponent. Jeśli aplikacja się uruchomiła, powróć do poprzedniej wersji Dockerfile.
 
 
-4. Dodaj target w Makefile-u:
+4. Dodaj target w Makefile-u dla budowy pakietu, żeby nie musieć pamiętać komendy:
 
    ```Makefile
    docker_build:

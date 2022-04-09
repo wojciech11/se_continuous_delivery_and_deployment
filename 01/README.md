@@ -247,9 +247,9 @@ Posiadanie własnej instalacji Jenkins-a daje nam duże możliwości konfiguracj
 
 Idziemy za ciosem. Mamy automatyczne testy, teraz chcemy dodać budowę pakietu dla naszego projektu. W ćwiczeniu pokażemy, jak przygotować komponenty gotowe do dostarczenia do klienta w ramach Continuous Delivery.
 
-Celem Continuous Delivery jest przygotowanie artefaktu gotowego do dostarczenia do klienta (Continuous Deployment). Artefaktem może być pakiet (.deb, .rpm), instalator (.msi), w naszym przypadku będzie to Docker.
+Celem Continuous Delivery jest przygotowanie artefaktu gotowego do dostarczenia do klienta (Continuous Deployment). Artefaktem może być pakiet (.deb, .rpm), instalator (.msi), w naszym przypadku będzie to obraz Dockera (*Docker image*).
 
-1. Utwórzmy przepis na nasz pakiet - plik `Dockerfile`:
+1. Utwórzmy przepis na nasz pakiet (obraz dockera/*Docker image*) - plik `Dockerfile`:
 
    ```Dockerfile
    FROM python:3
@@ -268,7 +268,7 @@ Celem Continuous Delivery jest przygotowanie artefaktu gotowego do dostarczenia 
            FLASK_APP=hello_world flask run --host=0.0.0.0
    ```
 
-Uwaga: Zanim zaczniesz to ćwiczenie, przygotuj sobie drugą zakładkę terminala (ctr-shift-t) lub nowe okno do uruchamiania komend jako root. W nowym terminalu, wywołaj sudo su (czy różni się: sudo su -), i upewnij się, że możesz wykonać komendą docker ps.
+Uwaga: Zanim zaczniesz to ćwiczenie, przygotuj sobie drugą zakładkę terminala (ctr-shift-t) lub nowe okno do uruchamiania komend jako root. W nowym terminalu, wywołaj `sudo su` (czym różni się od `sudo su -`?). W tej nowej zakładce, tam gdzie jesteś rootem, wykonaj komendę `docker ps`.
 
 2. Wypieczmy obraz dockera w oknie gdzie jesteś rootem:
 

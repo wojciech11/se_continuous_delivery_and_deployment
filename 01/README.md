@@ -249,7 +249,7 @@ Idziemy za ciosem. Mamy automatyczne testy, teraz chcemy dodać budowę pakietu 
 
 Celem Continuous Delivery jest przygotowanie artefaktu gotowego do dostarczenia do klienta (Continuous Deployment). Artefaktem może być pakiet (.deb, .rpm), instalator (.msi), w naszym przypadku będzie to Docker.
 
-1. Utwórzmy przepis na nasz pakiet:
+1. Utwórzmy przepis na nasz pakiet - plik `Dockerfile`:
 
    ```Dockerfile
    FROM python:3

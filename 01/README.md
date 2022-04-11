@@ -360,7 +360,21 @@ docker run -it hello-world-printer /bin/bash
 docker exec -it hello-world-printer-dev /bin/bash
 ```
 
-## 7. Nadawanie właściwego numeru wersji
+## 7. [Dodatkowe/Zaawansowane] Budowa i publikowanie pakietu  z Github Actions
+
+```mermaid
+flowchart LR
+  Github(Repozytorium\nGithub) -- wyzwala --> GAction(Automatycznie:\n1. linter\n2. testy\n3. buduje pakiet) -- 4. publikuje --> DH(Repozytorium\nobrazów\nDockera)
+```
+
+W dwóch iteracjach, opierając się na [dokumentacji](https://github.com/marketplace/actions/build-and-push-docker-images):
+
+- budowa pakietu,
+- publikowanie pakietu na hub.docker.com.
+
+Wymagane jest założenie konta na hub.docker.com. 
+
+## 8. Nadawanie właściwego numeru wersji
 
 Mamy pakiet w repozytorium, warto się zastanowić jak poprawnie nadać mu numer wersji. W tym celu poznajmy najpopularniejszą obecnie metodologie Semantic Versioning - [semver](http://semver.org/).
 
@@ -376,7 +390,6 @@ Mamy pakiet w repozytorium, warto się zastanowić jak poprawnie nadać mu numer
    - 1.3.2-1
    - 1.4.5+1
 
-
 5. Jaką wersję mają obecnie poniższe projekty i czy stosują semver?
 
    - [biblioteka flask](https://flask.palletsprojects.com/en/2.1.x/changes/)
@@ -388,7 +401,7 @@ Mamy pakiet w repozytorium, warto się zastanowić jak poprawnie nadać mu numer
 
 6. Co to jest Calver (https://calver.org/)?
 
-## 10. Kody HTTP
+## 9. Kody HTTP
 
 1. Zanotuj co oznaczają kody:
 
@@ -413,7 +426,7 @@ Mamy pakiet w repozytorium, warto się zastanowić jak poprawnie nadać mu numer
 
 Więcej na [testowanie http API w pigułce](https://github.com/wojciech11/se_http_api_testing_quickstart).
 
-## 8. Smoke Tests
+## 10. Smoke Tests
 
 Dodaj do Makefile, prosty smoke test (aka happy-path test):
 
@@ -429,7 +442,7 @@ test_smoke:
 	curl -s -o /dev/null -w "%{http_code}" --fail 127.0.0.1:5000
 ```
 
-## 9. Python - wsparcie dla XMLa
+## 11. Python - wsparcie dla XMLa
 
 Dowiedzieliśmy się, że nasza aplikacja ma również wspierać format XML.
 
@@ -456,7 +469,7 @@ Dodaj testy,
 
 Wszystko działa? Tak. Zmerguj z masterem.
 
-## 10. Python - podaje imię w argumencie
+## 12. Python - podaje imię w argumencie
 
 Dowiedzieliśmy się, że nasza aplikacja ma obsługiwać imię wpisane w argumencie.
 
@@ -478,7 +491,7 @@ Zauważ: Jeśli użytkownik nie poda imienia, użyj jako domyśle `moje_imie`.
 
 Nie zapomnij o testach.
 
-## 11. Python - tworzenie JSONa i XMLa z bibliotekami
+## 13. Python - tworzenie JSONa i XMLa z bibliotekami
 
 Tworzenie JSONa w stringu nie jest poprawne i bardzo podatne na błędy. Refaktoruj aplikację, żeby używała biblioteki json to tworzenia JSONa.
 
@@ -490,7 +503,7 @@ Tworzenie JSONa w stringu nie jest poprawne i bardzo podatne na błędy. Refakto
 
 2. Popraw generacje XMLa, w tym celu użyj biblioteki `lxml`.
 
-## 12. Python - Popraw testy formatera
+## 14. Python - Popraw testy formatera
 
 Testy formatera (`test_formater.py`) nie są najlepsze, proszę poprawić i objąć testami pozostałem metody outputu.
 

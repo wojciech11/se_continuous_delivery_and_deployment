@@ -1,6 +1,6 @@
 # Continuous Delivery and deployment [PL]
 
-0. Wymagane:
+0. Wymagane - proszę powtórzyć przed zajęciami:
 
    - [Ubuntu LTS](https://wiki.ubuntu.com/Releases) (20.04.3), może być na maszynie wirtualnej,
    - znajomość komend gita do umieszczania zmian na githubie ([powtórka](https://github.com/wojciech11/se_software_build_automation_tools/blob/master/01_exercise/README_pl.md)),

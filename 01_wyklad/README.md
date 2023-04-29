@@ -1,5 +1,9 @@
 # Continuous Integration i Delivery
 
+Slajdy: [pdf](index.pdf) ([html](index.html)).
+
+Zauważ: slajdy mogą wymagać uaktualnienia.
+
 Tematy:
 
 1. Co to jest Continuous Integration, Delivery, i Deployment,
@@ -13,5 +17,3 @@ Tematy:
 
 6. Automatyzacja jako poszukiwanie złotego środka,
 7. Przed ćwiczeniami, Docker jako format pakietu (podstawy).
-
-TODO(wojciech11): wrzucić slajdy

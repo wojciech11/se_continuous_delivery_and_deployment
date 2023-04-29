@@ -173,7 +173,7 @@ Projekt okazuje się sporym sukcesem, dostaliśmy kilka dni, aby poprawić kod, 
    pip install -r test_requirements.txt
    ```
 
-2. Teraz możemy wywołać py.test z aktywowanym pytest-cov (i wygenerować coverage.xml). `coverage.xml` będziemy wykorzystywać później do wizualizacji pokrycia testami.
+2. Teraz możemy wywołać `py.test` z aktywowanym *pytest-cov* (i wygenerować coverage.xml). `coverage.xml` będziemy wykorzystywać później do wizualizacji pokrycia testami.
 
    ```bash
    PYTHONPATH=. py.test --verbose -s --cov=.
@@ -239,13 +239,15 @@ Wyszukaj w Googlu i znajdź różnice między następującymi licencjami:
 - GPL
 - BSD
 
+Nie musisz poświęcać na to wiele czasu, tylko, żebyś zrozumiał ich główną różnicę, które mają mniejsze konsekwencje na twój projekt.
+
 ## 8. Monitorowanie licencji [Dodatkowe/Zaawansowane]
 
 Częścią pipeline-u w dużych firmach jest też wykrywanie licencji, które mogą nie są legalne w danej kombinacji (e.g., MIT with no military usage) czy pociągać za sobą poważne konsekwencje prawne, np., firmy raczej unikają GPL, niektóre kombinacje licencji nie są legalne.
 
 1.	Prostym narzędziem dostępnym jest pip-licenses (https://pypi.org/project/pip-licenses/). Zainstaluj i wyświetl licencje w swoim projekcie według powyższej instrukcji.
 
-2. Bardziej rozbudowanym narzędziem jest LicenseFinder  aby uniknąć konfiguracji i instalacji wymaganych bibliotek, skorzystajmy z oficjalnego obrazu dockera (hub.docker.com/r/licensefinder/license_finder/) :
+2. Bardziej rozbudowanym narzędziem jest LicenseFinder  aby uniknąć konfiguracji i instalacji wymaganych bibliotek, skorzystajmy z oficjalnego obrazu Dockera (hub.docker.com/r/licensefinder/license_finder/) :
 
    ```bash
     docker run -v $(pwd):/scan licensefinder/license_finder \
@@ -254,21 +256,133 @@ Częścią pipeline-u w dużych firmach jest też wykrywanie licencji, które mo
         license_finder report --python-version=3"
    ```
 
-   Uwaga: obraz dockera ma duży rozmiar, pond 2.5Gb.
+   Uwaga: obraz Dockera ma duży rozmiar, pond 2.5Gb.
 
 3. Zanotuj licencje komponentów, które używamy w naszej aplikacji.
 
-Popularnym narzędziem do monitorowania licencji jest blackducksoftware.com czy WhiteSource.
+Popularnym narzędziem do monitorowania licencji jest [fossa.com](https://fossa.com/), https://www.mend.io/, czy [anchore.com](https://anchore.com).
 
-## 9. Gitlab [Dodatkowe]
+## 9. Jenkins TBA
 
-TBA - patrz doc 04.
+Każda z często wykonywanych operacji związanych z rozwojem oprogramowania powinna być wykonywany automatycznie, aby jak najszybciej wykryć jakiekolwiek błędy. Jednym z popularnych narzędzi jest Jenkins (inne popularne narzędzie to GitlabCI).
+W tym ćwiczeniu wykorzystamy Jenkins-a do testowania naszego programu.
 
-## 10. Black vs flake8 [Dodatkowe/Zaawansowane]
+1. Utwórz fork z repozytorium: [github.com/wojciech11/se_teaching_jenkins](https://github.com/wojciech11/se_teaching_jenkins)
+
+2. Sklonuj swoje repozytorium dla Jenkinsa:
+
+   ```bash
+   git clone https://github.com/TWÓJ UZYTK GITHUB/se_teaching_jenkins
+   ```
+
+3. Uruchom Jenkins-a według instrukcji w `README.md`.
+
+4. Wybierz opcję **Install suggested plugins**, a potem **Skip and Continue as Admin**.
+
+5. Kiedy zostaniesz poproszony o podanie URLa, wciśnij **SKIP and Finish.**
+
+6. Zobaczysz co poniżej, wybierz utwórz nowe zadanie:
+
+   XYZ
+
+patrz instrukcja 10 CI/CD.
+
+## 10. Gitlab
+
+Już dość popularny Gitlab, w momencie, kiedy Github został kupiony przez Microsoft bierze sztormem rynek.
+
+1. Załóż konto, **nie** loguj się przez githuba, na [gitlab.com/users/sign_in](https://gitlab.com/users/sign_in)
+
+2. Utwórz nowy projekt
+
+3. Wybierz import Repo by URL
+
+4. Wklej URL twojego repozytorium git z hello_world_printer app na githubie.
+
+5. Po imporcie, powinieneś zobaczyć:
+
+   ![](img/gitlab.png)
+
+6. Zapoznaj się z sekcjami: Project, Repository, Registry
+
+7. Wybierz CI/CD – zapoznaj się z instrukcją
+
+8. Dodaj kolejny remote do Twojego lokalnego repozytorium git, efektem tego będzie:
+
+   ```mermaid
+   flowchart BT
+   l(local\ngit) -- master --> H(remote\ngithub)
+   l -- master --> G(remote\ngitlab)
+   ```
+
+   ```bash
+   # dodać nowe remote
+   git remote add gitlab https://gitlab.com/TWÓJ_UŻYTK/se_hello_printer_app.git
+   # wciaz bedziesz mogl wysylac
+   # zmiany na githuba
+   git push
+   #
+   # gitlab
+   git push gitlab master
+   ```
+
+9. Gitlab ma inny format definiowania workflowów CI/CD  `.gitlab-ci.yml` (patrz [dokumentacja](https://docs.gitlab.com/ee/ci/yaml/gitlab_ci_yaml.html)). Poznajmy ten format bliżej.
+
+   Dodaj plik `.gitlab-ci.yml`, aby każdy nowy kod, który znajdzie się w repozytorium github był przetestowany:
+
+   ```yaml
+   test:
+     image: "python:3"
+     stage: test
+     script:
+     - pip install -r requirements.txt
+     - pip install -r test_requirements.txt
+     - PYTHONPATH=. py.test  --verbose -s
+   ```
+
+10. Zobacz w sekcji CI/CD, co się stanie po wrzuceniu go do naszego repozytorium na git**labie**. Umieść ten plik również na githubie.
+
+11. Testy przechodzą? Warto zapakować naszą aplikację w pakiet. W naszym przypadku, wykorzystujemy dockera. Rozbudujmy nasz `.gitlab-ci.yml`:
+
+    ```yaml
+    stages:
+      - test
+      - docker_build
+
+    test:
+      image: "python:3"
+      stage: test
+      script:
+        - pip install -r requirements.txt
+        - pip install -r test_requirements.txt
+        - PYTHONPATH=. py.test  --verbose -s
+    docker:
+      image: docker:stable
+      services:
+        - docker:dind
+      stage: docker_build
+      script:
+        - docker build -t myapp .
+     ```
+
+   Do czego służy sekcja `stages`? Co daje nam `services`?
+
+
+12. Zastąp komendy `docker` i `pip` wywołaniem wcześniej przygotowanych targetów Makefile-a. Podpowiedź. Zauważ, musisz doinstalować make w dockerze w którym budujemy dockera:
+
+   ```yaml
+     script:
+       - apk add --update make
+       - make docker_build
+   ```
+
+13. [Dodatkowe] Dodaj deployment docker image do repozytorium repository.gitlab.com.
+
+## 11. Black vs flake8 [Dodatkowe/Zaawansowane]
 
 Po długich dyskusjach na temat wyglądu naszego kodu, doszliśmy do wniosku, że może nie warto tracić czasu i zgodzić się na jakąś istniejącą konwencję. Proponujesz [black](https://github.com/psf/black), wszyscy się zgadzają i proszę Ciebie, abyś wprowadził odpowiednie zmiany. Zacznij od Makefile.
 
-1. Zastępując target lint wywołaniem blacka oraz dodaj dodatkowy target dla sprawdzania czy kod jest dobrze sformatowany. Dodatkowy target, będzie kończy błędem, jeśli kod nie ma właściwego formatu.
+1. Zastępując target lint wywołaniem *blacka* oraz dodaj dodatkowy target dla sprawdzania czy kod jest dobrze sformatowany. Dodatkowy target, będzie kończy błędem, jeśli kod nie ma właściwego formatu.
 
    ```Makefile
    # formatuje kod wedlug blacka

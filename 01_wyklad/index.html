@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Continuous Delivery and deployment</title>
+
+		<meta name="description" content="Continuous Delivery and deployment">
+		<meta name="author" content="Wojciech Barczynski">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="ext/bootstrap-4.0.0-beta/bootstrap.min.css" />
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<style>
+			pre[class*="language-"] {border-left:0px; overflow:hidden}
+		</style>
+
+		<!-- nomnoml for drawing UML -->
+		<!-- script src="my-ext/nomnoml/lodash.min.js"></script -->
+		<!-- script src="my-ext/nomnoml/nomnoml.js"></script -->
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- section>
+					<h1>Licencja</h1>
+					<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0; width:40%" src="https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-nd.svg" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons<br /> Attribution-NonCommercial 4.0 International License</a>
+				</section -->
+
+
+				<section>
+					<h1>Continuous .*</h1>
+					<img src="img/cd.svg" />
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### D<span style="text-transform: lowercase;">laczego jest ważne</span>
+
+- zrozumieć jak buduje się obecnie oprogramowanie
+
+					</script>
+				</section>
+
+				<section>
+					<h3>P<span style="text-transform: lowercase;">rocesy ciągłej</span></h3>
+					<ul>
+						<li>Integracji (1)</li>
+						<li>Dostarczania (1)</li>
+						<li>Deploymentu (2)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Continuous .*</h2>
+					<img src="img/ci_cd_cd.svg" style="width:100%">
+				</section>
+
+				<section>
+					<h2>Continuous .*</h2>
+					<img src="img/od_dev_do_klienta.svg" style="width:80%">
+				</section>
+
+				<!-- WHY -->
+				<section>
+					<h3>Cel</h3>
+					<ul>
+						<li>Release bez ekscytacji</li>
+						<li>Release bez zawału serca</li>
+						<li>Automatyzacja</li>
+						<li>Bez u mnie to działa!</li>
+						<li>Szybsze dostarczenie feature do klienta</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Cel</h3>
+					<ul>
+						<li>Wiemy w jakim stanie jest nasze oprogramowanie</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>P<span style="text-transform: lowercase;">raktyki</span></h3>
+					<ul>
+						<li>Automatyzacji</li>
+						<li>Standaryzacji</li>
+						<li>Wykorzytanie narzędzi</li>
+						<li>Dostosowania oprogramowania</li>
+						<li>Praca z ludźmi</li>
+					</ul>
+				</section>
+
+				<section  data-background-color="#ffffff">
+					<h3>P<span style="text-transform: lowercase;">lan zajęć</span></h3>
+					<div>
+						<img style="box-shadow:none; vertical-align:middle" width="20%" src="img/Octocat.png"/>
+
+						<img style="box-shadow:none; vertical-align:middle" width="20%" src="https://github.githubassets.com/images/modules/site/features/actions-icon-actions.svg" /><!-- https://github.com/features/actions -->
+					</div>
+					<div>
+						<img width="20%" style="box-shadow: none" src="img/logo_docker_horizontal_large.png" />
+					</div>
+				</section>
+
+				<section>
+					<h3>C<span style="text-transform: lowercase;">iągła integracja</li></h3>
+					<ul>
+						<li>Każda zmiana (commit) zwalidowana przetestowana</li>
+						<li>Przygotowany pakiet do instalacji</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>C<span style="text-transform: lowercase;">iągła Integracja</li></h3>
+					<img src="img/assembly_line.gif" />
+				</section>
+
+				<section>
+					<h3>C<span style="text-transform: lowercase;">iągła Dostarczenie</li></h3>
+					<ul>
+						<li>Oprogramowanie gotowe do instalacji</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>C<span style="text-transform: lowercase;">iągła Deployment</li></h3>
+					<img src="img/app_delivered.jpg" />
+					<p>Oprogramowania w rękach klienta</p>
+				</section>
+
+				<section>
+					<h3>G<span style="text-transform: lowercase;">dzie się zaczyna</span> CI <span style="text-transform: lowercase;">a</span> CD?</li></h3>
+					<img src="img/ci_cd_cd.svg" style="width:100%">
+				</section>
+
+				<!-- <section>
+					<h3>Release bez ekscytacji</h3>
+					<ul>
+						<li>Częstość wykonywania czynności ~ jakość</li>
+						<li>Feature w YYY małych zmian idących do prod</li>
+						<li>Dostarczanie do klienta</li>
+					</ul>
+				</section> -->
+
+				<!-- <section data-markdown>
+					<script type="text/template">
+### Pamiętaj AGILE
+
+- Shipable software
+- Test on every step automatically
+					</script>
+				</section> -->
+
+				<!-- http://www.extremeprogramming.org/rules/integrateoften.html  -->
+
+				<!-- <section>
+					<h3>Cel</h3>
+					<ul>
+						<li>Nasze oprogramowanie jest<br/> cały czas gotowe do release-u</li>
+					</ul>
+				</section> -->
+
+				<section>
+					<h3>N<span style="text-transform: lowercase;">ajlepsze firmy</span></h3>
+					<ul>
+						<li>N zmian do produkcji dziennie</li>
+						<li>Release -> Business</li>
+						<li>Release -> Klient</li>
+						<li>Amazon w 2013, miał deployment nowego kodu co 11.6 sekundy</li>
+					</ul>
+					<!-- https://www.thoughtworks.com/insights/blog/case-continuous-delivery -->
+					<!-- http://joshuaseiden.com/blog/2013/12/amazon-deploys-to-production-every-11-6-seconds/ -->
+				</section>
+
+				<section>
+					<h4>C<span style="text-transform: lowercase;">o rozróżnia wiodące firmy od innych?</span></h4>
+
+					<ul>
+						<li>Lead Time</li>
+						<li><b style="color:#FF8C00">Deployment Frequency</b></li>
+						<li>Mean Time to Recovery</li>
+						<li>Change to Fail</li>
+					</ul>
+
+					<img src="https://m.media-amazon.com/images/I/51CjXuVck+L.jpg" style="width:30%" />
+
+					<p><small>Patrz książki <a href="https://www.amazon.com/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1942788002">DevOps Handbook</a> i <a href="https://www.amazon.com/Accelerate-Software-Performing-Technology-Organizations/dp/1942788339">Accelerate</a></small></p>
+				</section>
+
+				<section>
+					<h3>K<span style="text-transform: lowercase;">to pracuje</span></h3>
+					<ul>
+						<li>Deweloperzy</li>
+						<li>Test Inżynierowie</li>
+						<li>Inżyneriowie DevOps</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Automatyzacja</h1>
+				</section>
+
+				<section>
+					<h3>C<span style="text-transform: lowercase;">zego się nauczyliśmy</span></h3>
+					<ul>
+						<li>Ludzie nie radzą sobie z powtarzanymi zadaniami</li>
+						<li>Czym później wykryty błąd, tym więcej kosztuje</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>N<span style="text-transform: lowercase;">iebezpieczeństwa</span></h3>
+					<ul>
+						<li>Rabbit hol</li>
+						<li>Za wcześnie*</li>
+					</ul>
+					<p><small>[*] </small></p>
+				</section>
+
+				<section>
+					<h3>K<span style="text-transform: lowercase;">roki</span></h3>
+					<ol>
+						<li>Dobre notatki - praktycznie z instrukcjami do copy &amp; paste.</li>
+						<li>Skryty</li>
+						<li>Automatyzacja</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>A<span style="text-transform: lowercase;">utomate</span> E<span style="text-transform: lowercase;">verything!</span></h3>
+					<img src="img/automate_header.jpg" style="box-shadow:none; vertical-align:middle" width="70%"  />
+				</section>
+
+				<section>
+					<h3>Z<span style="text-transform: lowercase;">łoty</span> Ś<span style="text-transform: lowercase;">rodek.</span></h3>
+					<img src="img/golden_middle.jpeg" style="box-shadow:none; vertical-align:middle" width="70%"  />
+				</section>
+
+				<section>
+					<h3>W<span style="text-transform: lowercase;">arto się zapoznać</span></h3>
+					<ul>
+						<li>Książka "Automate the Boring Stuff with Python" (<a href="https://automatetheboringstuff.com/">online</a>)</li>
+						<li>Wykłady MIT <a href="https://missing.csail.mit.edu/">Missing Semester</a></li>
+					</ul>
+				</section>
+
+			<section>
+				<h1>C<span style="text-transform: lowercase;">iągła</span> I<span style="text-transform: lowercase;">ntegracja</span></h1>
+				<img src="img/assembly_line.gif" />
+			</section>
+
+				<section>
+					<h3>C<span style="text-transform: lowercase;">iągła</span> I<span style="text-transform: lowercase;">ntegracja</span></h3>
+					<img src="img/ci_diagram.svg" style="width:100%">
+					<p>Niektóre kroki mogą być manualne (jako step albo PR)!</p>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## Decyzje
+
+- konwencja dla git-a
+- jedno czy wiele repozytorium
+- metryki, konwencje nazewnictwo ...
+- dokumentacja ...
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## R<span style="text-transform: lowercase;">ola testera</span>
+
+<img width="50%" src="img/testing_pyramid_precise.png" />
+
+<small><p>Integruj stabilne testy i najszybsze w pierwszej kolejności!</p></small>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## Z<span style="text-transform: lowercase;">abójca</span> CI/CD
+
+- niestabilne testy i skrypty
+- woooolne testy*
+
+<p><small>* - można przenieść je do testów uruchamianych nocą</small></p>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## C<span style="text-transform: lowercase;">o się stanie jak CI/CD nie działa?</span>
+
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## Działający CI/CD jest
+##najwyższym priorytetem
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### K<span style="text-transform: lowercase;">ilka pomysłów</span>
+
+- <a href="https://github.com/codedance/Retaliation">Retaliation</a>
+- <a href="https://hackaday.com/2016/11/19/jenkins-and-slack-report-build-failure-light-the-beacons/">Sygnał</a>
+
+					</script>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+### CI<span style="text-transform: lowercase;"> zaczyna się na maszynie dev</li>
+
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### CI<span style="text-transform: lowercase;"> zaczyna się na maszynie dev</li>
+
+- tool wspólne dla automatyzacji i dev
+- testy (albo ich część) do lokalnego testowania bardzo szybkie
+- skrypt do uruchomiania komponentu *
+
+\* patrz: docker-compose
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### T<span style="text-transform: lowercase;">esty</span>
+
+- Testy Eksporacyjne
+- Testy Weryfikacja Automatyczna
+
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### T<span style="text-transform: lowercase;">esty - </span>A<span style="text-transform: lowercase;">utomatyczne</span>
+
+- Pasy bezpieczeństwa/Spadochron
+- Weryfikacja czy czegoś nie zepsuliśmy
+- Fuzzing
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### T<span style="text-transform: lowercase;">esty</span> E<span style="text-transform: lowercase;">ksporacyjne</span>
+
+- Manualne
+- Może być wspierany przez narzędzia <br />(curl, postman, selenium, tcpdump, consola dev)
+
+<small>Patrz : <a href="https://medium.freecodecamp.org/messing-with-the-google-buganizer-system-for-15-600-in-bounties-58f86cc9f9a5">Jak można zarobić 15k na Bug Bounty</a></small>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### T<span style="text-transform: lowercase;">esty</span> E<span style="text-transform: lowercase;">ksporacyjne</span>
+
+W domu: <a href="https://www.youtube.com/watch?v=vqwyMaHcjQE">James Bach on testing in an agile software development team.</a>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### M<span style="text-transform: lowercase;">etryki</span>
+
+- Zdrowie (build health)
+- Pokrycie (test coverage)
+- test reproducibility (&#9760;&#9760;&#9760;)
+- czas działania testów
+
+  (unit, integration, black, white box, ...) !!!!!
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### M<span style="text-transform: lowercase;">etryki</span>
+
+<img src="http://blog.octo.com/wp-content/uploads/2012/08/screenshot-dashboard-jenkins1.png" />
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### J<span style="text-transform: lowercase;">eśli wystąpi błąd</span>
+
+- email
+- slack / skype / chat / Discord
+					</script>
+				</section>
+
+				<section>
+					<h3>D<span style="text-transform: lowercase;">laczego </span>G<span style="text-transform: lowercase;">it</span>?</h3>
+					<div class="container">
+						<div class="row">
+							<div class='col-md-7'>
+								<ul>
+									<li>Najpopularniejszy SCM</li>
+									<li>Github</li>
+									<li>Mnóstwo narzędzi</li>
+									<li>Alternatywa: mercurial</li>
+								</ul>
+							</div>
+							<div class='col-md-5'>
+								<img width="100%" src="img/chellocat.jpg">
+								<p><small>https://octodex.github.com/</small></p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						##### G<span style="text-transform: lowercase;">it z centralnym repo</span>
+						<img src="img/git_central_setup.svg" width="50%">
+
+<small>Zauważ: są inne modele wykorzystania git-a, patrz, linux kernel</small>
+					</script>
+				</section>
+
+				<section data-markdown>
+<script type="text/template">
+### G<span style="text-transform: lowercase;">it</span>
+
+- klasycznie - master / develop
+- prosty: master + krótko żyjące feature branches
+- <a href="https://help.github.com/articles/github-flow/">github flow</a> (rekomendowany)
+- ... wiele innych
+- złożony - <a href="http://nvie.com/posts/a-successful-git-branching-model/">git-flow</a>
+</script>
+				</section>
+
+				<section data-markdown>
+<script type="text/template">
+### G<span style="text-transform: lowercase;">it</span>
+
+- 1 repo dla 1 produktu (wielu komponentów)
+- 1 repo dla wszystkich komponentów
+</script>
+				</section>
+
+<!-- section data-markdown>
+	<script type="text/template">
+		### Przykładowe scenariusze
+
+		- budowa serwerów
+		- aplikacja web
+</script>
+</section -->
+
+				<section>
+					<h3>Continuous Delivery</h3>
+						<img src="img/soyuz-train-1.jpg" />
+					<p>Przygotowanie do Release-u / Deployement do stagingu</p>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### Zasady
+<img src="img/build_once.svg" />
+</script>
+</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### Zasady
+
+- proces Release, Delivery... Deployment musi być powtarzalny i solidny
+- automatyzacja wszystkiego
+- jeśli coś jest trudne, rób to częściej i zautomatyzuj
+- wszystko w systemie kontroli wersji
+
+<p><small><a href="https://www.amazon.com/Practice-Cloud-System-Administration-Practices/dp/032194318X">The Practice of Cloud System Administration: DevOps and SRE Practices for WS, Volume 2</a></small></p>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### Zasady
+
+- DONE = w rękach klienta
+- wszyscy współdzielą odpowiedzialność za proces
+- ciągle poprawiaj proces / kod / narzędzia
+
+					</script>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+### Praktyki
+
+- zbuduj binarkę / pakiet raz
+- używaj tej samej binarki pakietu w całym procesie
+- proste testy (smoke tests) w docelowej platformie / środowisku
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+### Praktyki
+
+- zweryfikuj monitoring w docelowej platformie / środowisku
+- jeśli cokolwiek zawiodło, zacznij od początku
+					</script>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+### CI i CD
+
+Niezbędne narzędzie wprowadzenie kultury DevOps w firmie
+
+<p><small><a href="https://www.amazon.com/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1942788002">The DevOps Handbook</a></small>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## Pakiet: Docker
+
+<img src="img/logo_docker_horizontal_large.png" style="background-color:white;">
+
+<small>Przejdźmy do tablicy.</small>
+					</script>
+
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+## Pakiet
+
+- "u mnie działa"
+- dependency hell
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## Koszmar
+
+- A -&gt; B -&gt; C 1.0  and A-&gt; C 2.0 💀
+- biblioteki applikacji
+- biblioteki natywne
+- ...
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## Pakiet: Pakiety
+
+- deployment z githuba
+- pip
+- deb/rpm
+- fat packages (apt, runtime, ...), e.g., dh-virtualenv
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## Pakiet: Wirtualne Maszyny
+
+Plusy:
+- ultimate fat packages
+- wszystko od bibliotek applikacji do natywnych
+
+Minusy:
+- duży rozmiar
+- wolno się budują
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## Pakiet: Docker
+
+Plusy:
+- coś jak VM ale szybkie w tworzeniu i deploymentu
+- proste API
+- Podejście społeczności Dockera
+
+Minusy:
+- izolacja gościa od hosta
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## Pakiet: Docker
+
+Platformy aplikacji w oparciu o Dockera:
+
+- Kubernetes
+					</script>
+				</section>
+
+				<section>
+					<h2>Continuous Deployment</h2>
+					<img src="img/Soyuz_TMA-9_launch.jpg" style="width:45%">
+				</section>
+
+			<section>
+				<h4>Continuous Deployment</h4>
+				<img src="img/cdl_diagram.svg" style="width:80%"/>
+			</section>
+
+			<section>
+				<h2>Continuous Deployment</h2>
+				<img src="img/app_delivered.jpg" />
+				<p>Szczęśliwy klient</p>
+			</section>
+
+			<section>
+				<h2>Strach</h2>
+				<img src="img/fear-eyes.jpeg" style="width:60%" />
+				<p>Push to production</p>
+			</section><!-- https://www.youtube.com/watch?v=skLJuksCRTw -->
+
+			<section  data-background-color="#ffffff">
+				<h3>P<span style="text-transform: lowercase;">lan zajęć 1: deployment</span></h3>
+				<div>
+					<img style="box-shadow:none; vertical-align:middle" width="20%" src="img/Octocat.png"/>
+					<img style="box-shadow:none; vertical-align:middle" width="20%" src="https://github.githubassets.com/images/modules/site/features/actions-icon-actions.svg" /><!-- https://github.com/features/actions -->
+
+				</div>
+				<div>
+					<img width="30%" style="box-shadow: none" src="img/heroku-logotype-horizontal-purple.svg" />
+				</div>
+				<p><small>+ <a href="https://www.statuscake.com/">statuscake</a></small></p>
+				</section>
+
+				<section  data-background-color="#ffffff">
+					<h3>P<span style="text-transform: lowercase;">lan zajęć 2: deployment</span></h3>
+					<div>
+						<img style="box-shadow:none; vertical-align:middle" width="15%" src="img/jenkins.svg"/>
+						<img style="box-shadow:none; vertical-align:middle" width="40%" src="img/gitlab-logo-gray-rgb.svg" />
+					</div>
+				</section>
+
+				<section>
+					<h4>Ś<span style="text-transform: lowercase;">rodowiska</span></h4>
+					<img src="img/dev_envs.svg" style="width:80%"/>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## D<span style="text-transform: lowercase;">eployment</span>
+
+- Konfiguracja środowiska
+- Przygotowania i rollout środowiska
+
+  - infrastructure as-a-code (ansible / salt / chef)
+  - Kubernetes and Terraform
+
+- Zmiany w danych w produkcji
+- ...
+					</script>
+				</section>
+
+				<section>
+					<h2>Continuous Deployment</h2>
+					<ul>
+					 <li>System Tesing</li>
+					 <li>Load and Performance testing</li>
+					 <li>User Acceptance Tests</li>
+					 <li>Smoke tests</li>
+					 <li>Monitoring</li>
+					</ul>
+				</section>
+
+				<section data-markdown>
+<script type="text/template">
+## Rolling updates
+
+- jeden za drugim...
+
+<small><p><a href="https://github.com/wojciech12/talk_zero_downtime_deployment_with_kubernetes">presentation strona 35</a></p></small>
+</script>
+				</section>
+
+				<section data-markdown>
+<script type="text/template">
+## Canary
+
+- pierwsza grupa serwerów z nowych oprogramowaniem
+- jeśli wystąpią błędy zatrzymujemy release
+</script>
+				</section>
+
+				<section data-markdown>
+<script type="text/template">
+## Toggling Features
+
+- każda funkcjonalność ma flagę
+- flagi możemy szybko ustawiać albo usuwać
+</script>
+				</section>
+
+				<section data-markdown>
+<script type="text/template">
+## Hidden Features
+
+- nowe funkcjonalności nie widoczne dla użytkownika
+- działające w tle
+- weryfikuje nowego kodu w warunkach produkcyjnych
+</script>
+
+				</section>
+				<section data-markdown>
+<script type="text/template">
+## Metrics
+
+- UP/Down
+- <b>User history in app (CR1, CR2, CR3, CR4)</b>
+- Analytics and Business KPIs, e.g., revenue
+- A/B Testing
+- Performance
+- Request rate (count), Error rate (count), and Duration of requests. (<a href="http://peter.bourgon.org/blog/2016/02/07/logging-v-instrumentation.html">RED</a>)
+</script>
+				</section>
+
+				<section data-markdown>
+<script type="text/template">
+## Observability: Prometheus
+
+<img src="https://developers.soundcloud.com/blog/static/d16372095651eb4c86d6556e9a4ebf14/1c938/prometheus_bazooka_cpu_top3.png" />
+</script>
+</section>
+
+				<section data-markdown>
+<script type="text/template">
+### Observability: Grafana
+
+<video width="800" height="600" controls>
+	<source src="https://grafana.com/video/visualize.mp4" type="video/mp4">
+</video>
+</script>
+				</section>
+
+
+				<section data-markdown>
+<script type="text/template">
+## Jeśli metryki to alerty
+<pre>
+ALERT ProductionAppServiceInstanceDown
+   IF up { environment = "production", app =~ ".+"} == 0
+   FOR 4m
+   ANNOTATIONS {
+        summary = "Instance of {{$labels.app}} is down",
+        description = " Instance  {{$labels.instance}} of app {{$labels.app}} has been down for more than 4 minutes"
+   }
+</pre>
+</script>
+				</section>
+
+
+				<section data-markdown>
+<script type="text/template">
+## Jeśli metryki to alerty
+
+- pagerduty
+- opsgenie
+</script>
+</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## Observability
+
+- logging
+- tracing
+
+<p><small> </small></p>
+					</script>
+				</section>
+
+<section>
+	<h1>Pytania?</h1>
+	<h2>Podsumowanie</h2>
+</section>
+
+				<section>
+					<h1>Dziękuje za uwagę</h1>
+				</section>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					// { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

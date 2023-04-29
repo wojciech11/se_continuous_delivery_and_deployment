@@ -4,7 +4,7 @@
 
 W czasie tego ćwiczenia, będziemy korzystali z kodu źródłowego z ostatnich zajęć (aplikacja `se_hello_world`.
 
-Proszę zweryfikować, że wszystko działa. Wykozystaj `Makefile` oraz wskazówki w `README.md`.
+Proszę zweryfikować, że wszystko działa. Wykorzystaj `Makefile` oraz wskazówki w `README.md`.
 
 Pamiętaj o wirtualnym środowisku Pythona.
 
@@ -124,7 +124,7 @@ Flask ma wbudowany serwer WWW, ale, w domyślnej konfiguracji, ten serwer może 
 
 ## 3. Deployment z Github Actions [Dodatkowe]
 
-TBA - [docs](https://github.com/marketplace/actions/deploy-to-heroku)
+Jeśli, chciałabyś/chciałbyś, możesz wykorzystać wiedzę z poprzednich zajęć i zaimplementować ciągły deployment z pomocą  [dokumentacji](https://github.com/marketplace/actions/deploy-to-heroku).
 
 ## 4. Prosty monitoring z Statuscake
 

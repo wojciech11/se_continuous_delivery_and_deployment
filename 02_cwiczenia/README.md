@@ -1,5 +1,14 @@
 # Continuous Deployment &amp; Cloud Platforms
 
+Zobaczmy dzisiaj jak zbudować prosty Continuous Deployment i pracować z platformami w chmurze na przykładzie Heroku:
+
+```mermaid
+flowchart LR
+    Dev(Programista\nTester\nSystem Eng) -- git\npush --> Github(Repozytorium\nGithub) -- wyzwala --> GAction(Automatycznie:\n1. linter\n2. testy\n3. buduje pakiet\n<b>4. Deployment</b>) -- deployment --> Heroku(<b>Heroku</b>\nPaaS)
+```
+
+W drugiej części poznamy [Gitlaba](https://about.gitlab.com/) oraz wciąż popularnego [Jenkinsa](https://www.jenkins.io/).
+
 ## 1. Przygotowanie kodu źródłowego
 
 W czasie tego ćwiczenia, będziemy korzystali z kodu źródłowego z ostatnich zajęć (aplikacja `se_hello_world`.

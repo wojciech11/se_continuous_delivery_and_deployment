@@ -5,8 +5,8 @@ Na tym i następnych zajęciach omówimy w jaki sposób automatyzujemy budowę o
 Mówimy o trzech procesach:
 
 - Ciągła integracja (*Continuous Integration*)
-- Ciągle dostarczanie (*Continuous Delivery*)
-- Ciągla instalacja (*Continuous Deployment*)
+- Ciągłe dostarczanie (*Continuous Delivery*)
+- Ciągła instalacja (*Continuous Deployment*)
 
 ```mermaid
 flowchart LR
@@ -372,7 +372,7 @@ W dwóch iteracjach, opierając się na [dokumentacji](https://github.com/market
 - budowa pakietu,
 - publikowanie pakietu na hub.docker.com.
 
-Wymagane jest założenie konta na hub.docker.com. 
+Wymagane jest założenie konta na hub.docker.com.
 
 ## 8. Nadawanie właściwego numeru wersji
 
